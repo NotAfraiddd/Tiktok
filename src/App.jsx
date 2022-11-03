@@ -1,3 +1,5 @@
+import 'antd/dist/antd.min.css';
+import 'tippy.js/dist/tippy.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { publicRoutes } from '~/routes'
 import { DefaultLayout } from '~/components/Layout';
@@ -14,11 +16,11 @@ function App() {
 
                             // sử dụng Fragment nếu băngf null, ko cho hiển thị layout
                             let Layout = DefaultLayout;
-                            if(route.layout)
+                            if (route.layout)
                                 Layout = route.layout
-                            else if(route.layout === null)
+                            else if (route.layout === null)
                                 Layout = Fragment
-                                
+
                             return <Route key={index} path={route.path} element={
                                 <Layout>
                                     <Page />
