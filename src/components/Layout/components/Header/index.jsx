@@ -1,7 +1,7 @@
 import { Dropdown, Input, Menu, Space } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { black, defaultLayoutHeaderHeight, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
+import { black, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
 import { LoadingOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons';
 import Tippy from '@tippyjs/react/headless';
 import { useState } from 'react';
@@ -40,6 +40,26 @@ function Headers() {
         {
             icon: <FontAwesomeIcon icon={faLanguage} />,
             title: 'English',
+            children: {
+                title: 'Ngôn ngữ',
+                data: [
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Tiếng việt',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Tiếng Nga',
+                    },
+                ],
+            },
         },
         {
             icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -57,6 +77,12 @@ function Headers() {
         }, 0)
     }, [])
 
+    const handleMenuChange = (moreitem) => {
+        switch (moreitem.type) {
+            case 'language': break
+            default:
+        }
+    }
     return (
         <Wrapper>
             <StyledInner className='inner'>
@@ -93,7 +119,7 @@ function Headers() {
                 <StyledActions>
                     <StyledButton className='btn-upload'> <FontAwesomeIcon icon={faPlus} className='icon-plus' /> Upload</StyledButton>
                     <StyledButton className='btn-login'>Log in</StyledButton>
-                    <More items={MORE_ITEMS}>
+                    <More items={MORE_ITEMS} onChange={handleMenuChange}>
                         <button className='more-btn'>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
@@ -122,6 +148,7 @@ const StyledInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 ${defaultLayoutHorizontalSpacer};
 `
 const StyledSearchResults = styled.div`
     width: 361px;
@@ -162,6 +189,8 @@ const StyledActions = styled.div`
         height: 36px;
         padding: 0 16px;
         border: 1px solid rgba(22, 24, 35, 0.12);
+        cursor: pointer;
+        
     }
 
     .btn-upload{
@@ -180,11 +209,13 @@ const StyledActions = styled.div`
         font-size: 20px;
         margin-left: 24px;
         padding: 4px 8px;
+        cursor: pointer;
+
     }
 
 `
 const StyledLogo = styled.div`
-    
+    cursor: pointer;
 `
 const StyledButton = styled.button`
     border: none;

@@ -1,7 +1,7 @@
 import Header from "~/components/Layout/components/Header";
 import Slidebar from "./Slidebar";
 import styled from 'styled-components';
-import { defaultLayoutWith } from "~/components/GlobalStyles/GlobalStyles";
+import { defaultLayoutHorizontalSpacer, defaultLayoutWith } from "~/components/GlobalStyles/GlobalStyles";
 
 function DefaultLayout({ children }) {
     return (
@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 const StyledContainer = styled.div`
     width: ${defaultLayoutWith};
     display: flex;
+    padding: 0 ${defaultLayoutHorizontalSpacer};
 
 `
 
