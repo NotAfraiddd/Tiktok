@@ -1,4 +1,4 @@
-import { Button, Input } from 'antd';
+import { Dropdown, Input, Menu, Space } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
 import { black, defaultLayoutHeaderHeight, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
@@ -10,15 +10,14 @@ import { useEffect } from 'react';
 import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faEarthAsia, faEllipsisVertical, faKeyboard, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faEarthAsia, faEllipsisVertical, faKeyboard, faLanguage, faPlus } from '@fortawesome/free-solid-svg-icons';
 import More from '~/components/Proper/More';
-import MoreItem from '~/components/Proper/More';
 
 function Headers() {
     const [searchResult, setSearchResult] = useState([]);
     // user
     const user = [{
-        _id: '1',
+
         name: 'Thai Hoang Minh Chau',
         userName: 'minhchau',
         avatar: 'https://s120-ava-talk.zadn.vn/4/8/3/5/51/120/3a1cf7ea2e80a0262202104db962090e.jpg',
@@ -36,20 +35,21 @@ function Headers() {
         avatar: 'https://s120-ava-talk.zadn.vn/c/f/3/5/20/120/e83b009221d944ac707d41f4da3e138e.jpg',
     },
     ]
-    // more
-    const MORE_ITEM = [{
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: 'Tiếng việt',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: 'Phản hồi và trợ giúp',
-        to: '/feedback'
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: 'Phím tắt trên bàn phím',
-    },
+    // more item
+    const MORE_ITEMS = [
+        {
+            icon: <FontAwesomeIcon icon={faLanguage} />,
+            title: 'English',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+            title: 'Phản hồi và trợ giúp',
+            to: '/feedback',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faKeyboard} />,
+            title: 'Phím tắt trên bàn phím',
+        },
     ]
     useEffect(() => {
         setTimeout(() => {
@@ -93,9 +93,12 @@ function Headers() {
                 <StyledActions>
                     <StyledButton className='btn-upload'> <FontAwesomeIcon icon={faPlus} className='icon-plus' /> Upload</StyledButton>
                     <StyledButton className='btn-login'>Log in</StyledButton>
-                    <More items = {MORE_ITEM}>
-                        <StyledButton className='btn-more'><FontAwesomeIcon icon={faEllipsisVertical} /></StyledButton>
+                    <More items={MORE_ITEMS}>
+                        <button className='more-btn'>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
                     </More>
+
                 </StyledActions>
             </StyledInner>
         </Wrapper >
@@ -123,8 +126,7 @@ const StyledInner = styled.div`
 const StyledSearchResults = styled.div`
     width: 361px;
     &.more-items{
-        width: 220px;
-        padding: 8px;
+        width: 224px;
     }
 `
 const StyledSearchTitle = styled.h4`
@@ -172,11 +174,12 @@ const StyledActions = styled.div`
         color: #fff;
     }
 
-    .btn-more{
+    .more-btn{
+        border: none;
         background-color: #fff;
         font-size: 20px;
         margin-left: 24px;
-
+        padding: 4px 8px;
     }
 
 `
@@ -226,10 +229,6 @@ const StyledButton = styled.button`
         color: rgba(22,24,35,0.34);
         background-color: transparent;
     }
-    &.btn-more{
-        margin-left: 12px;
-        padding: 12px;
-    }
 
 `
 const StyledInput = styled.input`
@@ -242,4 +241,3 @@ const StyledInput = styled.input`
     flex: 1;
     caret-color: ${primary};
 `
-
