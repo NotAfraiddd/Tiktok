@@ -1,20 +1,21 @@
-import { Dropdown, Input, Menu, Space } from 'antd';
+import { Avatar, Divider, Dropdown, Input, Menu, Space } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { black, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
-import { LoadingOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons';
-import Tippy from '@tippyjs/react/headless';
+import { black, colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
+import { LoadingOutlined, SearchOutlined, ClearOutlined, UserOutlined, CloudUploadOutlined, MessageOutlined } from '@ant-design/icons';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
 import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faEarthAsia, faEllipsisVertical, faKeyboard, faLanguage, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faCloudUpload, faCoins, faEarthAsia, faEllipsisVertical, faGear, faKeyboard, faLanguage, faMessage, faPlus, faSignOut, faUpload, faUser } from '@fortawesome/free-solid-svg-icons';
 import More from '~/components/Proper/More';
-
 function Headers() {
     const [searchResult, setSearchResult] = useState([]);
+    const currentUser = true;
     // user
     const user = [{
 
@@ -41,7 +42,7 @@ function Headers() {
             icon: <FontAwesomeIcon icon={faLanguage} />,
             title: 'English',
             children: {
-                title: 'Ngôn ngữ',
+                title: 'Language',
                 data: [
                     {
                         type: 'language',
@@ -51,24 +52,48 @@ function Headers() {
                     {
                         type: 'language',
                         code: 'vi',
-                        title: 'Tiếng việt',
+                        title: 'Vietnamese',
                     },
                     {
                         type: 'language',
                         code: 'rus',
-                        title: 'Tiếng Nga',
+                        title: 'Russian',
                     },
                 ],
             },
         },
         {
             icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-            title: 'Phản hồi và trợ giúp',
+            title: 'Feedback and help',
             to: '/feedback',
         },
         {
             icon: <FontAwesomeIcon icon={faKeyboard} />,
-            title: 'Phím tắt trên bàn phím',
+            title: 'Keyboard shortcuts',
+        },
+    ]
+
+    const userMoreItems = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            to: '/@link',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/setting',
+        },
+        ...MORE_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
         },
     ]
     useEffect(() => {
@@ -77,9 +102,10 @@ function Headers() {
         }, 0)
     }, [])
 
+    // handle logic
     const handleMenuChange = (moreitem) => {
         switch (moreitem.type) {
-            case 'language': break
+            case 'language': break;
             default:
         }
     }
@@ -116,17 +142,39 @@ function Headers() {
                         <StyledButton className='search-btn'><SearchOutlined /></StyledButton>
                     </StyledSearch>
                 </Tippy>
-                <StyledActions>
-                    <StyledButton className='btn-upload'> <FontAwesomeIcon icon={faPlus} className='icon-plus' /> Upload</StyledButton>
-                    <StyledButton className='btn-login'>Log in</StyledButton>
-                    <More items={MORE_ITEMS} onChange={handleMenuChange}>
-                        <button className='more-btn'>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
-                    </More>
+                <StyledActions className='actions'>
+                    {currentUser ? (
+                        <>
+                            <StyledTippy delay={[0, 200]} content="Upload video">
+                                <StyledButton className='btn-action'>
+                                    <CloudUploadOutlined />
+                                </StyledButton>
+                            </StyledTippy>
+                            {/* <Tippy trigger='click' content="Your message">
+                                <StyledButton className='btn-action'>
+                                    <MessageOutlined />
+                                </StyledButton>
+                            </Tippy> */}
+                        </>
+                    ) : (
+                        <>
+                            <StyledButton className='btn-upload'> <FontAwesomeIcon icon={faPlus} className='icon-plus' /> Upload</StyledButton>
+                            <StyledButton className='btn-login'>Log in</StyledButton>
 
+                        </>
+                    )}
+                    <More items={currentUser ? userMoreItems : MORE_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <StyledAvatar icon={<UserOutlined />} src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2021/11/20/975861/5-Giong-Cho-Long-Xu-.jpg" />
+                        ) : (
+
+                            <StyledButton className='more-btn'>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </StyledButton>
+                        )}
+                    </More>
                 </StyledActions>
-            </StyledInner>
+            </StyledInner >
         </Wrapper >
     );
 }
@@ -181,6 +229,10 @@ const StyledSearch = styled.div`
     }
 `
 const StyledActions = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
     .btn-upload,
     .btn-login{
         background-color: #fff;
@@ -210,7 +262,12 @@ const StyledActions = styled.div`
         margin-left: 24px;
         padding: 4px 8px;
         cursor: pointer;
+    }
 
+    .btn-action{
+        background-color: transparent;
+        font-size: 26px;
+        color: #161823;
     }
 
 `
@@ -222,6 +279,7 @@ const StyledButton = styled.button`
     outline: none;
     font-size: 16px;
     font-weight: 700;
+    cursor: pointer;
     &.search-btn{
         border-top-right-radius: ${searchBorderRadius};
         border-bottom-right-radius: ${searchBorderRadius};
@@ -260,6 +318,9 @@ const StyledButton = styled.button`
         color: rgba(22,24,35,0.34);
         background-color: transparent;
     }
+    &.btn-action{
+        margin-right: 12px;
+    }
 
 `
 const StyledInput = styled.input`
@@ -271,4 +332,28 @@ const StyledInput = styled.input`
     height: 100%;
     flex: 1;
     caret-color: ${primary};
+`
+const StyledUser = styled.div`
+    
+`
+
+const StyledAvatar = styled(Avatar)`
+    
+`
+const StyledTippy = styled(Tippy)`
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    background-color: ${colorTippy};
+    .tippy-arrow{
+        color: ${colorTippy} ;
+    }
+    .tippy-arrow::before{
+        top: -8px !important;
+
+    }
+    .tippy-content{
+        padding: 8px 9px;
+    }
 `

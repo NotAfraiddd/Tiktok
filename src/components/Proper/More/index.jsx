@@ -5,6 +5,7 @@ import { Wrapper as ProperWrapper } from '~/components/Proper';
 import Header from './Header';
 import MoreItem from './MoreItems';
 
+// truyền mặc định vào
 const defaultFunc = () => { }
 
 function More({ children, items = [], onChange = defaultFunc }) {
@@ -35,7 +36,7 @@ function More({ children, items = [], onChange = defaultFunc }) {
             render={(attrs) => (
                 <StyledSearchResults className='more-list' tabIndex='-1' {...attrs} >
                     <StyledProperWrapper className='more-wrapper' >
-                        {history.length > 1 && <Header title='Ngôn ngữ' onBack={() => {
+                        {history.length > 1 && <Header title='Language' onBack={() => {
                             setHistory(prev => prev.slice(0, prev.length - 1))
                         }} />
                         }
@@ -44,7 +45,10 @@ function More({ children, items = [], onChange = defaultFunc }) {
                         }
                     </StyledProperWrapper>
                 </StyledSearchResults>
-            )}>
+            )}
+            // naỳ dùng để, khi ko hover vào sẽ auto trả về vị trí số 1 ở more-item
+            onHide={() => setHistory(prev => prev.slice(0, 1))}
+        >
             {children}
         </Tippy>);
 }
@@ -52,7 +56,7 @@ function More({ children, items = [], onChange = defaultFunc }) {
 export default More;
 
 const StyledSearchResults = styled.div`
-    width: 240px;
+    width: 223px;
 `
 
 const StyledProperWrapper = styled(ProperWrapper)`
