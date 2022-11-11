@@ -15,10 +15,10 @@ const StyledButton = styled(Button)`
     padding: 7px 16px;
     color: ${black};
     width: 100%;
+
     &.more-item{
         margin-left: 0;
-        font-weight: 600;
-
+        font-family: 'ProximaNova', sans-serif;
     }
     .Button_icon__VUNpS{
         margin-right: 8px;

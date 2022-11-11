@@ -1,41 +1,16 @@
-import { Avatar, Divider, Dropdown, Input, Menu, Space } from 'antd';
+import { Avatar } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { black, colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
-import { LoadingOutlined, SearchOutlined, ClearOutlined, UserOutlined, CloudUploadOutlined, MessageOutlined } from '@ant-design/icons';
+import { colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
+import { UserOutlined, CloudUploadOutlined, SendOutlined, MailOutlined } from '@ant-design/icons';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Wrapper as ProperWrapper } from '~/components/Proper';
-import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faCloudUpload, faCoins, faEarthAsia, faEllipsisVertical, faGear, faKeyboard, faLanguage, faMessage, faPlus, faSignOut, faUpload, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faCoins, faEllipsisVertical, faGear, faKeyboard, faLanguage, faMessage, faPlus, faSignOut, faUpload, faUser } from '@fortawesome/free-solid-svg-icons';
 import More from '~/components/Proper/More';
+import Search from '../Search';
 function Headers() {
-    const [searchResult, setSearchResult] = useState([]);
     const currentUser = true;
-    // user
-    const user = [{
-
-        name: 'Thai Hoang Minh Chau',
-        userName: 'minhchau',
-        avatar: 'https://s120-ava-talk.zadn.vn/4/8/3/5/51/120/3a1cf7ea2e80a0262202104db962090e.jpg',
-    },
-    {
-        _id: '2',
-        name: 'Duy Khang',
-        userName: 'duykhang',
-        avatar: 'https://s120-ava-talk.zadn.vn/b/f/3/a/3/120/4ae7bbb88211e3fdd33873839ba6a1d8.jpg',
-    },
-    {
-        _id: '3',
-        name: 'Lê Tuấn',
-        userName: 'letuan',
-        avatar: 'https://s120-ava-talk.zadn.vn/c/f/3/5/20/120/e83b009221d944ac707d41f4da3e138e.jpg',
-    },
-    ]
     // more item
     const MORE_ITEMS = [
         {
@@ -96,11 +71,6 @@ function Headers() {
             to: '/logout',
         },
     ]
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([])
-        }, 0)
-    }, [])
 
     // handle logic
     const handleMenuChange = (moreitem) => {
@@ -115,33 +85,9 @@ function Headers() {
                 <StyledLogo className='logo'>
                     <img src={images.logo} alt="TikTok" srcset="" />
                 </StyledLogo>
-                <Tippy
-                    interactive
-                    visible={searchResult.length > 0}
-                    render={attrs => (
-                        <StyledSearchResults className='search-results' tabIndex='-1' {...attrs}>
-                            <ProperWrapper>
-                                <StyledSearchTitle>Account</StyledSearchTitle>
-                                {
-                                    user.map((user, index) => (
-                                        <AccountItem
-                                            key={index}
-                                            index={user._id}
-                                            name={user.name}
-                                            userName={user.userName}
-                                            avatar={user.avatar} />
-                                    ))
-                                }
-                            </ProperWrapper>
-                        </StyledSearchResults>
-                    )}>
-                    <StyledSearch className='search'>
-                        <StyledInput placeholder='Search accounts and videos' className='inputText' />
-                        <StyledButton className='clear-btn'><ClearOutlined /></StyledButton>
-                        <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton>
-                        <StyledButton className='search-btn'><SearchOutlined /></StyledButton>
-                    </StyledSearch>
-                </Tippy>
+
+                {/* search */}
+                <Search />
                 <StyledActions className='actions'>
                     {currentUser ? (
                         <>
@@ -150,11 +96,19 @@ function Headers() {
                                     <CloudUploadOutlined />
                                 </StyledButton>
                             </StyledTippy>
-                            {/* <Tippy trigger='click' content="Your message">
+                            <StyledTippy delay={[0, 200]} content="Your message">
                                 <StyledButton className='btn-action'>
-                                    <MessageOutlined />
+                                    <SendOutlined />
+                                    <StyledBadge className='badge'>5</StyledBadge>
                                 </StyledButton>
-                            </Tippy> */}
+                            </StyledTippy>
+                            <StyledTippy delay={[0, 200]} content="Your mail">
+                                <StyledButton className='btn-action'>
+                                    <MailOutlined />
+                                    <StyledBadge className='badge'>12</StyledBadge>
+                                </StyledButton>
+                            </StyledTippy>
+
                         </>
                     ) : (
                         <>
@@ -187,7 +141,6 @@ const Wrapper = styled.div`
     box-shadow: 0 1px 1px rgb(0 0 0 / 12%);
     display: flex;
     justify-content: center;
-
 `
 
 const StyledInner = styled.div`
@@ -198,36 +151,7 @@ const StyledInner = styled.div`
     justify-content: space-between;
     padding: 0 ${defaultLayoutHorizontalSpacer};
 `
-const StyledSearchResults = styled.div`
-    width: 361px;
-    &.more-items{
-        width: 224px;
-    }
-`
-const StyledSearchTitle = styled.h4`
-    color: rgba(22,24,35,0.5);
-    font-size: 14px;
-    font-weight: 600;
-    padding: 5px 12px;
-    margin: 0;
-`
-const StyledSearch = styled.div`
-    display: flex;
-    width: 361px;
-    height: 46px;
-    background-color: rgba(22,24,35,0.06);
-    border-radius: ${searchBorderRadius};
-    padding-left: 16px;
-    position: relative;
-    &:focus-within{
-        border: 1.5px solid rgba(22,24,35,0.2);
-    }
-    .inputText:not(:placeholder-shown) ~ .search-btn{
-        svg{
-            color: ${black};
-        }
-    }
-`
+
 const StyledActions = styled.div`
     display: flex;
     align-items: center;
@@ -242,7 +166,6 @@ const StyledActions = styled.div`
         padding: 0 16px;
         border: 1px solid rgba(22, 24, 35, 0.12);
         cursor: pointer;
-        
     }
 
     .btn-upload{
@@ -279,7 +202,9 @@ const StyledButton = styled.button`
     outline: none;
     font-size: 16px;
     font-weight: 700;
+    font-family: 'ProximaNova', sans-serif;
     cursor: pointer;
+    position: relative;
     &.search-btn{
         border-top-right-radius: ${searchBorderRadius};
         border-bottom-right-radius: ${searchBorderRadius};
@@ -319,26 +244,25 @@ const StyledButton = styled.button`
         background-color: transparent;
     }
     &.btn-action{
-        margin-right: 12px;
+        margin-right: 20px;
     }
 
 `
-const StyledInput = styled.input`
-    color: ${black};
-    font-size: 16px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    height: 100%;
-    flex: 1;
-    caret-color: ${primary};
-`
-const StyledUser = styled.div`
-    
-`
-
 const StyledAvatar = styled(Avatar)`
-    
+`
+const StyledBadge = styled.span`
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    padding: 0px 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'ProximaNova', sans-serif;
+    background-color: var(--primary);
 `
 const StyledTippy = styled(Tippy)`
     border-radius: 8px;
