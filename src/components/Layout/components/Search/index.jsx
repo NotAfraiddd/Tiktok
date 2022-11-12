@@ -13,14 +13,32 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
 
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 1, 1, 1])
-        }, 0)
-    }, [])
+        // cái này dùng để bắt lỗi khi truyền vào searchValue là rỗng
+        if (!searchValue.trim()) {
+            // cái này dùng để tắt setShowResult( thanh chỗ báo kết quả) đi
+            setShowResult(false)
+            return;
+        }
+
+        setLoading(true)
+
+        // encodeURIComponent dùng để khắc phục các ký tự đặc biệt lkhi truyền vào ?,&
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResult(res.data);
+                setLoading(false)
+            })
+            .catch(() => {
+                setLoading(false)
+            })
+
+    }, [searchValue])
 
     const handleClear = () => {
         setSearchValue('');
@@ -76,17 +94,14 @@ function Search() {
             interactive
             visible={showResult && searchResult.length > 0}
             render={attrs => (
-                <StyledSearchResults className='search-results' tabIndex='-1' {...attrs}>
+                <StyledSearchResults className='search-results' spellCheck={false} tabIndex='-1' {...attrs}>
                     <ProperWrapper>
                         <StyledSearchTitle>Account</StyledSearchTitle>
                         {
-                            user.map((user, index) => (
+                            searchResult.map((result) => (
                                 <AccountItem
-                                    key={index}
-                                    index={user._id}
-                                    name={user.name}
-                                    userName={user.userName}
-                                    avatar={user.avatar} />
+                                    key={result.id}
+                                    data={result} />
                             ))
                         }
                     </ProperWrapper>
@@ -95,12 +110,12 @@ function Search() {
             <StyledSearch className='search'>
                 <StyledInput ref={inputRef} onFocus={() => setShowResult(true)} placeholder='Search accounts and videos' value={searchValue} onChange={e => setSearchValue(e.target.value)} className='inputText' />
                 {
-                    !!searchValue && (
+                    !!searchValue && !loading && (
                         <StyledButton className='clear-btn' onClick={handleClear}><ClearOutlined />
                         </StyledButton>
                     )
                 }
-                {/* <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton> */}
+                {loading && <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton>}
                 <StyledButton className='search-btn'><SearchOutlined /></StyledButton>
             </StyledSearch>
         </HeadlessTippy>);

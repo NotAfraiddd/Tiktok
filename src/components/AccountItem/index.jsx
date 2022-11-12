@@ -2,18 +2,21 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar } from "antd";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { black } from "../GlobalStyles/GlobalStyles";
 
-function AccountItem({ avatar, name, userName }) {
+function AccountItem({ data }) {
     return (
-        <StyledWrapper className="wrapper">
-            <StyledAvatar src={avatar} />
+        <StyledWrapper to={`/@${data.nickname}`} className="wrapper">
+            <StyledAvatar src={data.avatar}
+                alt={data.full_name} />
             <StyledInfo className="info">
                 <StyledName className="name">
-                    <span>{name}</span>
-                    <FontAwesomeIcon icon={faCheckCircle} />
+                    <span>{data.full_name}</span>
+                    {data.tick && <FontAwesomeIcon icon={faCheckCircle} />}
                 </StyledName>
                 <StyledUserName className="user-name">
-                    {userName}
+                    {data.nickname}
                 </StyledUserName>
             </StyledInfo>
         </StyledWrapper>
@@ -21,14 +24,18 @@ function AccountItem({ avatar, name, userName }) {
 }
 
 export default AccountItem;
-const StyledWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    padding: 6px 16px;
-    cursor: pointer;
-    &:hover{
-        background: rgba(22,24,35,0.03);
+const StyledWrapper = styled(Link)`
+    &.wrapper{
+        display: flex;
+        align-items: center;
+        padding: 6px 16px;
+        cursor: pointer;
+        color: ${black};
+        &.wrapper:hover{
+            background: rgba(22,24,35,0.03);
+        }
     }
+   
 `
 const StyledAvatar = styled(Avatar)`
     width: 40px;
