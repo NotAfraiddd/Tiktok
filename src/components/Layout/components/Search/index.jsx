@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccountItem from '~/components/AccountItem';
 import { useRef } from 'react';
+import { useDebounce } from '~/assets/hooks';
 
 function Search() {
     const [searchResult, setSearchResult] = useState([]);
@@ -17,9 +18,13 @@ function Search() {
 
     const inputRef = useRef();
 
+    // debounced dùng để khắc phục tình trạng request liên tục khi có hành động liên tiếp xảy ra
+    const debounced = useDebounce(searchValue, 500);
+
+
     useEffect(() => {
         // cái này dùng để bắt lỗi khi truyền vào searchValue là rỗng
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             // cái này dùng để tắt setShowResult( thanh chỗ báo kết quả) đi
             setShowResult(false)
             return;
@@ -28,7 +33,7 @@ function Search() {
         setLoading(true)
 
         // encodeURIComponent dùng để khắc phục các ký tự đặc biệt lkhi truyền vào ?,&
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
@@ -38,7 +43,7 @@ function Search() {
                 setLoading(false)
             })
 
-    }, [searchValue])
+    }, [debounced])
 
     const handleClear = () => {
         setSearchValue('');
