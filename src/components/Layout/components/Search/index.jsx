@@ -9,7 +9,7 @@ import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccountItem from '~/components/AccountItem';
 import { useRef } from 'react';
 import { useDebounce } from '~/assets/hooks';
-
+import * as search from '~/api-service/searchService';
 function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
@@ -29,20 +29,15 @@ function Search() {
             setShowResult(false)
             return;
         }
+        const fetchAPI = async () => {
+            setLoading(true)
+            const result = await search.search(debounced);
+            setSearchResult(result)
+            setLoading(false)
 
-        setLoading(true)
+        }
 
-        // encodeURIComponent dùng để khắc phục các ký tự đặc biệt lkhi truyền vào ?,&
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false)
-            })
-            .catch(() => {
-                setLoading(false)
-            })
-
+        fetchAPI();
     }, [debounced])
 
     const handleClear = () => {
@@ -54,45 +49,6 @@ function Search() {
     const handleHideResults = () => {
         setShowResult(false)
     }
-    // user
-    const user = [
-        {
-            _id: '1',
-            name: 'Thai Hoang Minh Chau',
-            userName: 'minhchau',
-            avatar: 'https://s120-ava-talk.zadn.vn/4/8/3/5/51/120/3a1cf7ea2e80a0262202104db962090e.jpg',
-        },
-        {
-            _id: '2',
-            name: 'Duy Khang',
-            userName: 'duykhang',
-            avatar: 'https://s120-ava-talk.zadn.vn/b/f/3/a/3/120/4ae7bbb88211e3fdd33873839ba6a1d8.jpg',
-        },
-        {
-            _id: '3',
-            name: 'Lê Tuấn',
-            userName: 'letuan',
-            avatar: 'https://s120-ava-talk.zadn.vn/c/f/3/5/20/120/e83b009221d944ac707d41f4da3e138e.jpg',
-        },
-        {
-            _id: '4',
-            name: 'Thai Hoang Minh Chau',
-            userName: 'minhchau',
-            avatar: 'https://s120-ava-talk.zadn.vn/4/8/3/5/51/120/3a1cf7ea2e80a0262202104db962090e.jpg',
-        },
-        {
-            _id: '5',
-            name: 'Duy Khang',
-            userName: 'duykhang',
-            avatar: 'https://s120-ava-talk.zadn.vn/b/f/3/a/3/120/4ae7bbb88211e3fdd33873839ba6a1d8.jpg',
-        },
-        {
-            _id: '6',
-            name: 'Lê Tuấn',
-            userName: 'letuan',
-            avatar: 'https://s120-ava-talk.zadn.vn/c/f/3/5/20/120/e83b009221d944ac707d41f4da3e138e.jpg',
-        },
-    ]
     return (
         <HeadlessTippy
             onClickOutside={handleHideResults}
