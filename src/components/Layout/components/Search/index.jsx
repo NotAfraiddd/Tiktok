@@ -49,6 +49,17 @@ function Search() {
     const handleHideResults = () => {
         setShowResult(false)
     }
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    }
+
+    const handleSumbit = (e) => {
+
+    }
     return (
         <HeadlessTippy
             onClickOutside={handleHideResults}
@@ -69,7 +80,12 @@ function Search() {
                 </StyledSearchResults>
             )}>
             <StyledSearch className='search'>
-                <StyledInput ref={inputRef} onFocus={() => setShowResult(true)} placeholder='Search accounts and videos' value={searchValue} onChange={e => setSearchValue(e.target.value)} className='inputText' />
+                <StyledInput ref={inputRef}
+                    onFocus={() => setShowResult(true)}
+                    placeholder='Search accounts and videos'
+                    value={searchValue}
+                    onChange={handleChange}
+                    className='inputText' />
                 {
                     !!searchValue && !loading && (
                         <StyledButton className='clear-btn' onClick={handleClear}><ClearOutlined />
@@ -77,7 +93,9 @@ function Search() {
                     )
                 }
                 {loading && <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton>}
-                <StyledButton className='search-btn'><SearchOutlined /></StyledButton>
+                <StyledButton className='search-btn'
+                    onClick={handleSumbit}
+                    onMouseDown={e => e.preventDefault()}><SearchOutlined /></StyledButton>
             </StyledSearch>
         </HeadlessTippy>);
 }
@@ -123,6 +141,7 @@ const StyledInput = styled.input`
     height: 100%;
     flex: 1;
     caret-color: ${primary};
+    font-family: var(--font-family);
 `
 const StyledButton = styled.button`
     border: none;

@@ -8,7 +8,7 @@ import MoreItem from './MoreItems';
 // truyền mặc định vào
 const defaultFunc = () => { }
 
-function More({ children, items = [], onChange = defaultFunc }) {
+function More({ children, items = [],hideOnClick = false, onChange = defaultFunc }) {
     const [history, setHistory] = useState([{ data: items }]);
     // current ở đây sẽ đi thẳng vào cuối, kiểu như đi thẳng vào menu cấp 2
     const current = history[history.length - 1];
@@ -32,6 +32,7 @@ function More({ children, items = [], onChange = defaultFunc }) {
         <Tippy
             delay={[0, 500]}
             interactive
+            hideOnClick={hideOnClick}
             placement='bottom-end'
             render={(attrs) => (
                 <StyledSearchResults className='more-list' tabIndex='-1' {...attrs} >
