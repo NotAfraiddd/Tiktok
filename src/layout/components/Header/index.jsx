@@ -6,12 +6,11 @@ import { UserOutlined, CloudUploadOutlined, SendOutlined, MailOutlined } from '@
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faCoins, faEllipsisVertical, faGear, faKeyboard, faLanguage, faMessage, faPlus, faSignOut, faUpload, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faCoins, faEllipsisVertical, faGear, faKeyboard, faLanguage, faPlus, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import More from '~/components/Proper/More';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
 import config from '~/config';
-import Button from '~/components/Button';
 function Headers() {
     const currentUser = true;
     // more item

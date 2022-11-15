@@ -13,8 +13,6 @@ function More({ children, items = [], hideOnClick = false, onChange = defaultFun
     const [history, setHistory] = useState([{ data: items }]);
     // current ở đây sẽ đi thẳng vào cuối, kiểu như đi thẳng vào menu cấp 2
     const current = history[history.length - 1];
-
-    console.log(current);
     const renderItems = () => {
         return current.data.map((item, index) => {
             // convert sang boolean: !!
