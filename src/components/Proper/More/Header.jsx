@@ -19,6 +19,7 @@ export default Header;
 const StyledHeader = styled.header`
     position: relative;
     height: 50px;
+    flex-shrink: 0;
 `
 const StyledButton = styled.button`
     border: none;

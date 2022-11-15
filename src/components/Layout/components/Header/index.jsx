@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth } from '~/components/GlobalStyles/GlobalStyles';
+import { black, colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth, white } from '~/components/GlobalStyles/GlobalStyles';
 import { UserOutlined, CloudUploadOutlined, SendOutlined, MailOutlined } from '@ant-design/icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -19,6 +19,111 @@ function Headers() {
             children: {
                 title: 'Language',
                 data: [
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Vietnamese',
+                    },
+                    {
+                        type: 'language',
+                        code: 'rus',
+                        title: 'Russian',
+                    },
                     {
                         type: 'language',
                         code: 'en',
@@ -80,7 +185,7 @@ function Headers() {
         }
     }
     return (
-        <Wrapper>
+        <Wrapper className='header'>
             <StyledInner className='inner'>
                 <StyledLogo className='logo'>
                     <img src={images.logo} alt="TikTok" srcset="" />
@@ -136,11 +241,16 @@ function Headers() {
 export default Headers;
 
 const Wrapper = styled.div`
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    background-color: ${white};
     height: ${defaultLayoutHeaderHeight};
     width: 100%;
     box-shadow: 0 1px 1px rgb(0 0 0 / 12%);
-    display: flex;
-    justify-content: center;
 `
 
 const StyledInner = styled.div`

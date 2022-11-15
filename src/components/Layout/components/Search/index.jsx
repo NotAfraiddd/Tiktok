@@ -61,43 +61,48 @@ function Search() {
 
     }
     return (
-        <HeadlessTippy
-            onClickOutside={handleHideResults}
-            interactive
-            visible={showResult && searchResult.length > 0}
-            render={attrs => (
-                <StyledSearchResults className='search-results' spellCheck={false} tabIndex='-1' {...attrs}>
-                    <ProperWrapper>
-                        <StyledSearchTitle>Account</StyledSearchTitle>
-                        {
-                            searchResult.map((result) => (
-                                <AccountItem
-                                    key={result.id}
-                                    data={result} />
-                            ))
-                        }
-                    </ProperWrapper>
-                </StyledSearchResults>
-            )}>
-            <StyledSearch className='search'>
-                <StyledInput ref={inputRef}
-                    onFocus={() => setShowResult(true)}
-                    placeholder='Search accounts and videos'
-                    value={searchValue}
-                    onChange={handleChange}
-                    className='inputText' />
-                {
-                    !!searchValue && !loading && (
-                        <StyledButton className='clear-btn' onClick={handleClear}><ClearOutlined />
-                        </StyledButton>
-                    )
-                }
-                {loading && <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton>}
-                <StyledButton className='search-btn'
-                    onClick={handleSumbit}
-                    onMouseDown={e => e.preventDefault()}><SearchOutlined /></StyledButton>
-            </StyledSearch>
-        </HeadlessTippy>);
+        // Using a wrapper <div> or <span> tag around the reference element 
+        //solves this by creating a new parentNode context. 
+        <div>
+            <HeadlessTippy
+                onClickOutside={handleHideResults}
+                interactive
+                visible={showResult && searchResult.length > 0}
+                render={attrs => (
+                    <StyledSearchResults className='search-results' spellCheck={false} tabIndex='-1' {...attrs}>
+                        <ProperWrapper>
+                            <StyledSearchTitle>Account</StyledSearchTitle>
+                            {
+                                searchResult.map((result) => (
+                                    <AccountItem
+                                        key={result.id}
+                                        data={result} />
+                                ))
+                            }
+                        </ProperWrapper>
+                    </StyledSearchResults>
+                )}>
+                <StyledSearch className='search'>
+                    <StyledInput ref={inputRef}
+                        onFocus={() => setShowResult(true)}
+                        placeholder='Search accounts and videos'
+                        value={searchValue}
+                        onChange={handleChange}
+                        className='inputText' />
+                    {
+                        !!searchValue && !loading && (
+                            <StyledButton className='clear-btn' onClick={handleClear}><ClearOutlined />
+                            </StyledButton>
+                        )
+                    }
+                    {loading && <StyledButton className='loading-btn'><LoadingOutlined /></StyledButton>}
+                    <StyledButton className='search-btn'
+                        onClick={handleSumbit}
+                        onMouseDown={e => e.preventDefault()}><SearchOutlined /></StyledButton>
+                </StyledSearch>
+            </HeadlessTippy>
+        </div>
+    );
 }
 
 export default Search;
