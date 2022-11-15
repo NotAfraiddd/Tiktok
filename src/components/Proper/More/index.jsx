@@ -30,7 +30,6 @@ function More({ children, items = [], hideOnClick = false, onChange = defaultFun
 
     return (
         <Tippy
-            visible
             delay={[0, 500]}
             interactive
             hideOnClick={hideOnClick}

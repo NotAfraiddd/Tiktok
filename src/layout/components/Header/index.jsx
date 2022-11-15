@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { black, colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth, white } from '~/components/GlobalStyles/GlobalStyles';
+import { colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth, white } from '~/components/GlobalStyles/GlobalStyles';
 import { UserOutlined, CloudUploadOutlined, SendOutlined, MailOutlined } from '@ant-design/icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion, faCoins, faEllipsisVertical, faGear, faKeyboard, faLanguage, faMessage, faPlus, faSignOut, faUpload, faUser } from '@fortawesome/free-solid-svg-icons';
 import More from '~/components/Proper/More';
 import Search from '../Search';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 function Headers() {
     const currentUser = true;
     // more item
@@ -187,7 +189,7 @@ function Headers() {
     return (
         <Wrapper className='header'>
             <StyledInner className='inner'>
-                <StyledLogo className='logo'>
+                <StyledLogo className='logo' to={config.routes.home}>
                     <img src={images.logo} alt="TikTok" srcset="" />
                 </StyledLogo>
 
@@ -304,7 +306,7 @@ const StyledActions = styled.div`
     }
 
 `
-const StyledLogo = styled.div`
+const StyledLogo = styled(Link)`
     cursor: pointer;
 `
 const StyledButton = styled.button`

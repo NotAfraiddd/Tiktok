@@ -9,7 +9,7 @@ import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccountItem from '~/components/AccountItem';
 import { useRef } from 'react';
 import { useDebounce } from '~/assets/hooks';
-import * as search from '~/api-service/searchService';
+import * as search from '~/service/searchService';
 function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');

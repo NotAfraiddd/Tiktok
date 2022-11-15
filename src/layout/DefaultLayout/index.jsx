@@ -1,4 +1,4 @@
-import Header from "~/components/Layout/components/Header";
+import Header from "~/layout/components/Header";
 import Slidebar from "./Slidebar";
 import styled from 'styled-components';
 import { defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith } from "~/components/GlobalStyles/GlobalStyles";
