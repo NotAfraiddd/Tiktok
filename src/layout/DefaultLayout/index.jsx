@@ -1,6 +1,7 @@
 import Header from "~/layout/components/Header";
 import Slidebar from "./Slidebar";
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith } from "~/components/GlobalStyles/GlobalStyles";
 
 function DefaultLayout({ children }) {
@@ -13,6 +14,10 @@ function DefaultLayout({ children }) {
             </StyledContainer>
         </Wrapper>
     );
+}
+
+DefaultLayout.propTypes = {
+    children: PropTypes.node.isRequired,
 }
 
 export default DefaultLayout;

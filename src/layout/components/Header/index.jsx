@@ -11,6 +11,7 @@ import More from '~/components/Proper/More';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import Button from '~/components/Button';
 function Headers() {
     const currentUser = true;
     // more item
@@ -19,7 +20,7 @@ function Headers() {
             icon: <FontAwesomeIcon icon={faLanguage} />,
             title: 'English',
             children: {
-                title: 'Language',
+                title: 'Language 263',
                 data: [
                     {
                         type: 'language',
@@ -192,7 +193,6 @@ function Headers() {
                 <StyledLogo className='logo' to={config.routes.home}>
                     <img src={images.logo} alt="TikTok" srcset="" />
                 </StyledLogo>
-
                 {/* search */}
                 <Search />
                 <StyledActions className='actions'>

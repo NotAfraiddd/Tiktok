@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import Button from "~/components/Button";
 import { black } from "~/components/GlobalStyles/GlobalStyles";
+import PropTypes from 'prop-types';
 
 
 function MoreItem({ data, onClick }) {
     return (
         <StyledButton className='more-item' leftIcon={data.icon} to={data.to} onClick={onClick}>{data.title}</StyledButton>
     );
+}
+
+MoreItem.propTypes = {
+    data: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
 }
 
 export default MoreItem;

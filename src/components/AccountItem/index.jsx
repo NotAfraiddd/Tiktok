@@ -4,6 +4,7 @@ import { Avatar } from "antd";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { black } from "../GlobalStyles/GlobalStyles";
+import PropTypes from 'prop-types';
 
 function AccountItem({ data }) {
     return (
@@ -21,6 +22,10 @@ function AccountItem({ data }) {
             </StyledInfo>
         </StyledWrapper>
     );
+}
+
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired,
 }
 
 export default AccountItem;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 function Wrapper({ children, className }) {
     return (
@@ -6,6 +7,10 @@ function Wrapper({ children, className }) {
             {children}
         </StyledWrapper>
     );
+}
+
+Wrapper.propTypes = {
+    children: PropTypes.node.isRequired
 }
 
 export default Wrapper;
