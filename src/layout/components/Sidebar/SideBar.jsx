@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { HomeIcon, HomeIconActive, LiveIcon, LiveIconActive, UserGroupIcon, UserGroupIconActive } from '~/components/icons';
+import SuggestedAccounts from '~/components/SuggestedAccounts';
 import config from '~/config';
 import Menu, { MenuItem } from './Menu';
 function Sidebar() {
@@ -10,6 +11,8 @@ function Sidebar() {
                 <MenuItem title='Following' to={config.routes.following} icon={<UserGroupIcon />} activeIcon={<UserGroupIconActive />}></MenuItem>
                 <MenuItem title='LIVE' to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveIconActive />}></MenuItem>
             </Menu>
+            <SuggestedAccounts label='Suggested Accounts' />
+            <SuggestedAccounts label='Following accounts' />
         </Wrapper>);
 }
 
