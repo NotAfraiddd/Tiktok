@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import styled from 'styled-components';
 import images from '~/assets/images';
-import { colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, primary, searchBorderRadius, searchButtonHeight, searchButtonWidth, white } from '~/components/GlobalStyles/GlobalStyles';
+import { colorTippy, defaultLayoutHeaderHeight, defaultLayoutHorizontalSpacer, defaultLayoutWith, searchBorderRadius, searchButtonHeight, searchButtonWidth, white } from '~/components/GlobalStyles/GlobalStyles';
 import { UserOutlined, CloudUploadOutlined, SendOutlined, MailOutlined } from '@ant-design/icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -180,8 +180,8 @@ function Headers() {
     ]
 
     // handle logic
-    const handleMenuChange = (moreitem) => {
-        switch (moreitem.type) {
+    const handleMenuChange = (moreItem) => {
+        switch (moreItem.type) {
             case 'language': break;
             default:
         }
